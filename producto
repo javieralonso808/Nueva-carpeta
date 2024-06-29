@@ -1,0 +1,65 @@
+import random
+import json
+
+producto = {}
+
+def generar_codigo():
+    return random.randint(10, 1000)
+
+def agregar_producto():
+    cod = generar_codigo()
+    nombre = input("Ingrese el nombre de la producto: ")
+    cantidad = int(input("Ingrese la cantidad del producto: "))
+    categoria = input("Ingrese la categoría del producto: ")
+    precio = input("Ingrese el precio del producto: ")
+    
+
+    producto = {
+        "cod": cod,
+        "nombre": nombre,
+        "cantidad": cantidad,
+        "categoria": categoria,
+        "precio": precio,
+    }
+
+    producto[cod] = producto
+    print("producto agregado exitosamente!")
+
+def listar_producto():
+    if not producto:
+        print("No hay películas registradas.")
+        return
+    
+    for cod, producto in producto.items():
+        print(f"Código: {cod}")
+        print(f"Nombre: {producto['nombre']}")
+        print(f"cantidad: {producto['cantidad']}")
+        print(f"Categoría: {producto['categoria']}")
+        print(f"precio: {producto['precio']}")
+        print()
+
+def buscar_producto():
+    categoria = input("Ingrese la categoría del producto a buscar: ")
+    encontradas = [producto for producto in producto.values() if producto['categoria'] == categoria]
+
+    if not encontradas:
+        print("No se encontraron películas en esa categoría.")
+    else:
+        for producto in encontradas:
+            print(f"Código: {producto['cod']}")
+            print(f"Nombre: {producto['nombre']}")
+            print(f"cantidad: {producto['cantidad']}")
+            print(f"Categoría: {producto['categoria']}")
+            print(f"precio: {producto['precio']}")
+            print()
+
+def guardar_producto():
+    with open('producto.txt', 'w') as file:
+        for producto in producto.values():
+            file.write(f"Código: {producto['cod']}\n")
+            file.write(f"Nombre: {producto['nombre']}\n")
+            file.write(f"cantidad: {producto['cantidad']}\n")
+            file.write(f"Categoría: {producto['categoria']}\n")
+            file.write(f"precio: {producto['precio']}\n")
+            file.write("\n")
+    print("producto guardadas en producto.txt")
